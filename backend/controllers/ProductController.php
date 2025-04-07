@@ -3,77 +3,77 @@ include_once dirname(__DIR__) . '/models/Product.php'; // Fix the path dynamical
 
 class ProductController {
     private $productModel;
+    private mysqli $db;
+
+    public function __construct() {
+        $this->db = new mysqli('localhost', 'root', '', 'eshop');
+
+        if ($this->db->connect_error) {
+            die('Connection failed: ' . $this->db->connect_error);
+        }
+    }
     public function getAllProducts() {
         $productModel = new Product();
         return $productModel->fetchAllProducts(); // Ensure this method exists in Product.php
     }
-}
-?>
 
+    public function getAllCategories(){
+        $sql = "SELECT DISTINCT Category FROM products";
+        $result = $this->db->query($sql);
 
-class ProductController {
-
-    // Add a new product
-    public function addProduct($name, $price, $description, $manufacturer, $category, $conn) {
-        $product = new Product($name, $price, $description, $manufacturer, $category);
-        $product->save($conn);  // Save the product to the database
-        echo "Product added successfully!<br>";
-    }
-
-    // Edit an existing product by ID
-    public function editProduct($id, $name, $price, $description, $manufacturer, $category, $conn) {
-        $product = Product::getById($conn, $id);
-        if ($product) {
-            $product->setName($name);
-            $product->setPrice($price);
-            $product->setDescription($description);
-            $product->setManufacturer($manufacturer);
-            $product->setCategory($category);
-            $product->save($conn);  // Update the product in the database
-            echo "Product updated successfully!<br>";
-        } else {
-            echo "Product not found!<br>";
+        $categories = [];
+        while ($row = $result->fetch_assoc()) {
+            $categories[] = $row['Category']; // Only add the string value
         }
+
+        return  $categories;
+
     }
 
-    // Delete a product by ID
-    public function deleteProduct($id, $conn) {
-        $product = Product::getById($conn, $id);
-        if ($product) {
-            $product->delete($conn);  // Delete the product from the database
-            echo "Product deleted successfully!<br>";
-        } else {
-            echo "Product not found!<br>";
-        }
+    public function getAllCategoriesWithProductsCount(){
+       $sql = "SELECT Category, COUNT(*) AS ProductCount FROM products GROUP BY Category";
+       $result = $this->db->query($sql);
+
+       $categoriesWithProductsCount = [];
+       while ($row = $result->fetch_assoc()) {
+        $categoriesWithProductsCount[] = $row;
+    }
+    return  $categoriesWithProductsCount;
     }
 
-    // Get a product by ID
-    public function getProductById($id, $conn) {
-        $product = Product::getById($conn, $id);
-        if ($product) {
-            echo "Product ID: " . $product->getId() . "<br>";
-            echo "Product Name: " . $product->getName() . "<br>";
-            echo "Price: $" . $product->getPrice() . "<br>";
-            echo "Description: " . $product->getDescription() . "<br>";
-            echo "Manufacturer: " . $product->getManufacturer() . "<br>";
-            echo "Category: " . $product->getCategory() . "<br>";
-        } else {
-            echo "Product not found!<br>";
-        }
-    }
+    public function getThreeRandomProducts(){
+        $sql = "SELECT * FROM products LIMIT 3";
+        $result = $this->db->query($sql);
 
-    // Get all products
-    public function getAllProducts($conn) {
-        $products = Product::getAll($conn);
-        if (!empty($products)) {
-            foreach ($products as $product) {
-                echo "Product ID: " . $product->getId() . " | " . 
-                     "Product Name: " . $product->getName() . " | " . 
-                     "Price: $" . $product->getPrice() . "<br>";
+        $threeRandomProducts = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $productId = $row['Id'];
+    
+                // Step 2: Fetch all images for this product
+                $imgSql = "SELECT Id FROM images WHERE product_id = ?";
+                $stmt = $this->db->prepare($imgSql);
+                $stmt->bind_param("i", $productId);
+                $stmt->execute();
+                $imgResult = $stmt->get_result();
+    
+                $images = [];
+                while ($imgRow = $imgResult->fetch_assoc()) {
+                    $images[] = $imgRow['Id'];
+                }
+    
+                // Step 3: Add images to product data
+                $row['images'] = $images;
+    
+                $threeRandomProducts[] = $row;
             }
-        } else {
-            echo "No products found!<br>";
         }
+
+        /*while ($row = $result->fetch_assoc()) {
+            $threeRandomProducts[] = $row;
+        }*/
+        return   $threeRandomProducts;
     }
 }
 ?>
