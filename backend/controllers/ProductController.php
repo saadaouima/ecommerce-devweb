@@ -69,11 +69,20 @@ class ProductController {
                 $threeRandomProducts[] = $row;
             }
         }
-
-        /*while ($row = $result->fetch_assoc()) {
-            $threeRandomProducts[] = $row;
-        }*/
         return   $threeRandomProducts;
+    }
+
+    public function getProductById($id) {
+        $sql = "SELECT * FROM products WHERE Id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+       
+       
+      
+        return  $result ?: null;
+        
     }
 }
 ?>

@@ -495,12 +495,13 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                     <?php
                             if (!empty($threeRandomProducts)) {
                                 foreach ($threeRandomProducts as $product) {
+                                    echo "<a href=\"product-details.php?id=".$product['Id']."\" style=\"text-decoration: none; color: inherit;\">";
                                     echo"<div class=\"trend__item\">";
                                     echo"<div class=\"trend__item__pic\">";
                                     echo"<img src=\"../assets/".$product['images'][0] .".jpg\" alt=\"\">";
                                     echo"</div>";
                                     echo"<div class=\"trend__item__text\">";
-                                    echo"<h6>".$product['Id']."</h6>";
+                                    echo"<h6>".$product['Name']."</h6>";
                                     echo"<div class=\"rating\">";
                                     echo"<i class=\"fa fa-star\"></i>";
                                     echo"<i class=\"fa fa-star\"></i>";
@@ -511,6 +512,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                     echo"<div class=\"product__price\">".$product['Price']." TND</div>";
                                     echo"</div>";
                                     echo"</div>";
+                                    echo"</a>";
                                 }
                             }
                             ?>
