@@ -498,7 +498,11 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                     echo "<a href=\"product-details.php?id=".$product['Id']."\" style=\"text-decoration: none; color: inherit;\">";
                                     echo"<div class=\"trend__item\">";
                                     echo"<div class=\"trend__item__pic\">";
+<<<<<<< Updated upstream
                                     echo"<img src=\"../assets/".$product['images'][0] .".jpg\" alt=\"\">";
+=======
+                                    echo '<img src="../assets/products_images/' . $product['images'][0] . '" width="90" height="90" alt="">';
+>>>>>>> Stashed changes
                                     echo"</div>";
                                     echo"<div class=\"trend__item__text\">";
                                     echo"<h6>".$product['Name']."</h6>";
