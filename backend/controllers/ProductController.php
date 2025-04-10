@@ -79,7 +79,19 @@ class ProductController {
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
        
-       
+        $imgSql = "SELECT Id FROM images WHERE product_id = ?";
+        $stmt = $this->db->prepare($imgSql);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $imgResult = $stmt->get_result();
+
+        $images = [];
+        while ($imgRow = $imgResult->fetch_assoc()) {
+            $images[] = $imgRow['Id'];
+        }
+
+        // Step 3: Add images to product data
+        $result ['images'] = $images;
       
         return  $result ?: null;
         

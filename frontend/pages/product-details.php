@@ -147,25 +147,28 @@
                 <div class="col-lg-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll">
-                            <a class="pt active" href="#product-1">
-                                <img src="img/product/details/thumb-1.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-2">
-                                <img src="img/product/details/thumb-2.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-3">
-                                <img src="img/product/details/thumb-3.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-4">
-                                <img src="img/product/details/thumb-4.jpg" alt="">
-                            </a>
+                        <?php
+                            if (!empty($product['images'])) {
+                                for ($i = 1; $i <= count($product['images']); $i++) {
+                                    echo '<a class="pt active" href="#product-'.$i.'">';
+                                    echo'<img src="../assets/products_images/'.$product['images'][$i-1].'" alt="">';
+                                    echo '</a>';
+                                }
+                            }
+                            else { echo"null";}
+                        ?>
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel">
-                                <img data-hash="product-1" class="product__big__img" src="img/product/details/product-1.jpg" alt="">
-                                <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg" alt="">
-                                <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg" alt="">
-                                <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg" alt="">
+                            <?php
+                            if (!empty($product['images'])) {
+                                for ($i = 1; $i <= count($product['images']); $i++) {
+                                    echo '<img data-hash="product-'.$i.'" class="product__big__img" src="../assets/products_images/'.$product['images'][$i-1].'" alt="">';
+                                    
+                                }
+                            }
+                            else { echo"null";}
+                            ?>
                             </div>
                         </div>
                     </div>
