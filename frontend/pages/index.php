@@ -82,7 +82,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="../assets/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="../assets/logo.png" width="98" height="31" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -498,7 +498,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                     echo "<a href=\"product-details.php?id=".$product['Id']."\" style=\"text-decoration: none; color: inherit;\">";
                                     echo"<div class=\"trend__item\">";
                                     echo"<div class=\"trend__item__pic\">";
-                                    echo"<img src=\"../assets/".$product['images'][0] .".jpg\" alt=\"\">";
+                                    echo '<img src="../assets/' . $product['images'][0] . '.jpg" width="90" height="90" alt="">';
                                     echo"</div>";
                                     echo"<div class=\"trend__item__text\">";
                                     echo"<h6>".$product['Name']."</h6>";
