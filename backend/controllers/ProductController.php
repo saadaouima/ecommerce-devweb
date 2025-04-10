@@ -54,7 +54,7 @@ class ProductController {
                 // Step 2: Fetch all images for this product
                 $imgSql = "SELECT Id FROM images WHERE product_id = ?";
                 $stmt = $this->db->prepare($imgSql);
-                $stmt->bind_param("i", $productId);
+                $stmt->bind_param("s", $productId);
                 $stmt->execute();
                 $imgResult = $stmt->get_result();
     
