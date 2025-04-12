@@ -164,8 +164,12 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                 $count = count($categoriesWithProductsCount);
                                 for ($i = 1; $i < $count; $i++) {
                                     $categoryWithProductsCount = $categoriesWithProductsCount[$i];
+                                     if ($categoryWithProductsCount['Category'] == "Outils de Massage") $categoryImage ="massage.png";
+                                     else if ($categoryWithProductsCount['Category'] == "MAQUILLAGE") $categoryImage ="maquillage.png";
+                                     else if ($categoryWithProductsCount['Category'] == "CORPS") $categoryImage ="corps.png";
+                                     else if ($categoryWithProductsCount['Category'] == "CHEVEUX") $categoryImage ="cheveux.png";
                                     echo "<div class=\"col-lg-6 col-md-6 col-sm-6 p-0\">";
-                                    echo "<div class=\"categories__item set-bg\" data-setbg=\"img/categories/category-2.jpg\">";
+                                    echo '<div class="categories__item set-bg" data-setbg="../assets/'.$categoryImage.'">';
                                     echo "<div class=\"categories__text\">";
                                     echo "<h4>".$categoryWithProductsCount['Category']."</h4>";
                                     echo "<p>".$categoryWithProductsCount['ProductCount']." produits</p>";

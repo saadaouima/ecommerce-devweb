@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[23]:
-
-
-pip install mysql-connector-python
 
 
 # In[1]:

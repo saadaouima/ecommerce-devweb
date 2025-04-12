@@ -267,7 +267,13 @@
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Utilisation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( <?php
+                                if (!empty($product['reviews'])) {
+                                    $reviewsCount = (string) count($product['reviews']);
+                                    echo  $reviewsCount ;
+                                }
+                                else {echo "0";}
+                                ?> )</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -280,17 +286,29 @@
                                 <p><?php if($product) {echo $product['Utilisation'];} else {echo "null";}?></p>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <h6>Reviews ( 2 )</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                                <?php
+                                if (!empty($product['reviews'])) {
+                                foreach ($product['reviews'] as $review) {
+                                    echo  $review['user_name'] . "<br>";
+                                
+                                    // Dynamic star rating
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $review['rating']) {
+                                            echo "⭐";
+                                        } else {
+                                            echo "☆";
+                                        }
+                                    }
+                                    echo "<br>";
+                                
+                                    echo  $review['comment'] . "<br>";
+                                    echo "<small><em>Reviewed on: " . $review['review_date'] . "</em></small>";
+                                    echo "<br>";
+                                    echo "<br>";
+                                    echo "<br>";
+                                }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

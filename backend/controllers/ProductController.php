@@ -92,6 +92,21 @@ class ProductController {
 
         // Step 3: Add images to product data
         $result ['images'] = $images;
+
+        $reviewSql = "SELECT * FROM reviews WHERE product_id = ?";
+        $stmt = $this->db->prepare($reviewSql);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $reviewResult = $stmt->get_result();
+        $reviewsArray = [];
+        if ($reviewResult) {
+            while ($row = $reviewResult->fetch_assoc()) {
+                $reviewsArray[] = $row;
+            }
+        }
+    
+        $result['reviews'] = $reviewsArray;
+
       
         return  $result ?: null;
         
