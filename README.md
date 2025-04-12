@@ -29,9 +29,46 @@ This project is a Python-based web scraper designed to extract product data and 
 ---
 
 ## 📂 Project Structure
-. ├── scrapper.py # Main scraping script
-└── assets/
-└── products_images/ # Folder to store downloaded images
+📂 ecommerce_project/
+├── 📂 frontend/ (HTML, CSS, JavaScript – Interface utilisateur)
+│ ├── 📂 assets/ (images, icônes, polices...)
+│ ├── 📂 css/ (fichiers CSS pour le design)
+│ ├── 📂 js/ (scripts JavaScript pour l’interactivité)
+│ ├── 📂 pages/ (pages principales du site)
+│ │ ├── index.html (page d’accueil)
+│ │ ├── product.html (page produit détaillée)
+│ │ ├── cart.html (panier d'achat)
+│ │ ├── checkout.html (commande et paiement)
+│ │ ├── login.html (authentification)
+│ │ ├── register.html (inscription)
+│ │ ├── profile.html (profil utilisateur)
+│ │ ├── contact.html (page contact)
+│ │ ├── about.html (à propos)
+│ ├── 📜 script.js (code général en JS : animations, AJAX, etc.)
+
+├── 📂 backend/ (PHP, MySQL – Traitement serveur)
+│ ├── 📂 includes/ (fichiers PHP réutilisables : connexion DB, fonctions...)
+│ │ ├── db_connect.php (connexion à la base de données)
+│ │ ├── functions.php (fonctions utilitaires : ajout au panier, etc.)
+│ ├── 📂 controllers/ (traitement des requêtes utilisateurs)
+│ │ ├── userController.php (gestion des utilisateurs)
+│ │ ├── productController.php (gestion des produits)
+│ │ ├── cartController.php (gestion du panier)
+│ ├── 📂 models/ (modèles pour gérer les données MySQL)
+│ │ ├── User.php (modèle utilisateur)
+│ │ ├── Product.php (modèle produit)
+│ │ ├── Order.php (modèle commande)
+│ ├── 📂 api/ (APIs pour le frontend AJAX, gestion API REST, Web Scraping...)
+│ │ ├── fetch_products.php (API pour récupérer les produits)
+│ │ ├── scrap_products.php (script de web scraping pour extraire des produits)
+
+├── 📂 database/ (SQL – Schéma et données initiales)
+│ ├── ecommerce.sql (script pour créer la base de données et les tables)
+
+├── 📂 documentation/ (Documentation LaTeX, wireframes Figma, etc.)
+│ ├── schema_DB.pdf (schéma de la base de données)
+│ ├── wireframes.fig (maquettes UI/UX sur Figma)
+│ ├── rapport.tex (rapport en LaTeX)
 
 ⚙️ Setup Instructions
 Clone the repository
