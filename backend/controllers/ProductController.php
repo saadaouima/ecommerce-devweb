@@ -73,7 +73,7 @@ class ProductController {
     }
 
     public function getProductById($id) {
-        $sql = "SELECT * FROM products WHERE Id = ?";
+        $sql = "SELECT p.*,  ROUND(IFNULL(AVG(r.rating), 0)) AS rating, COUNT(r.review_id) AS total_reviews FROM  products p LEFT JOIN reviews r ON p.id = r.product_id WHERE Id = ? GROUP BY p.id";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $id);
         $stmt->execute();
@@ -110,6 +110,44 @@ class ProductController {
       
         return  $result ?: null;
         
+    }
+
+    public function getProductsByCategory($category){
+        $sql = "SELECT p.*, ROUND(IFNULL(AVG(r.rating), 0)) AS rating FROM products p LEFT JOIN reviews r ON p.id = r.product_id WHERE Category = ? GROUP BY p.Id ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $products = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $productId = $row['Id'];
+    
+                // Step 2: Fetch all images for this product
+                $imgSql = "SELECT Id FROM images WHERE product_id = ?";
+                $stmt = $this->db->prepare($imgSql);
+                $stmt->bind_param("s", $productId);
+                $stmt->execute();
+                $imgResult = $stmt->get_result();
+    
+                $images = [];
+                while ($imgRow = $imgResult->fetch_assoc()) {
+                    $images[] = $imgRow['Id'];
+                }
+    
+                // Step 3: Add images to product data
+                $row['images'] = $images;
+
+               
+                
+    
+                $threeRandomProducts[] = $row;
+            }
+        }
+        return   $threeRandomProducts;
+
     }
 }
 ?>

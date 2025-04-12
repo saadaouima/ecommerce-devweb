@@ -1,3 +1,22 @@
+<?php
+// Include the controller
+require_once '..\..\backend\controllers\ProductController.php';
+
+// Instantiate the controller
+$productController = new ProductController();
+
+if (isset($_GET['category'])) {
+    $category = $_GET['category'];
+} else {
+    echo "No category received.";
+}
+// Get all products using the controller
+$products = $productController->getProductsByCategory($category);
+
+$categoriesWithProductsCount = $productController->getAllCategoriesWithProductsCount();
+
+$threeRandomProducts = $productController->getThreeRandomProducts();
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -15,14 +34,14 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
 </head>
 
 <body>
@@ -339,6 +358,47 @@
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="row">
+                    <?php
+                            if (!empty($products)) {
+                                foreach ($products as $product) {
+                                    $currentDateTime = new DateTime(); // current date
+                                    $currentDateTimeString = $currentDateTime->format('Y-m-d H:i:s');
+                                    $productCreationDateTime = new DateTime($product['Created_At']); // your other date
+                                    $interval = $currentDateTime ->diff($productCreationDateTime);
+                                    $days = $interval->days;
+                                    
+                                    echo '<div class="col-lg-4 col-md-6">';
+                                     echo '<div class="product__item">';
+                                     echo '<div class="product__item__pic set-bg" data-setbg="../assets/products_images/'.$product['images'][0].'">';
+                                     if ($days <= 10){echo '<div class="label new">New</div>';}
+                                     if ($product['Quantity']==0){echo '<div class="label stockout stockblue">Out Of Stock</div>';}
+                                     echo '<ul class="product__hover">';
+                                     echo '<li><a href="../assets/products_images/'.$product['images'][0].'" class="image-popup"><span class="arrow_expand"></span></a></li>';
+                                     echo '<li><a href="#"><span class="icon_heart_alt"></span></a></li>';
+                                     echo '<li><a href="#"><span class="icon_bag_alt"></span></a></li>';
+                                     echo '</ul>';
+                                      echo '</div>';
+                                      echo '<div class="product__item__text">';
+                                       echo '<h6><a href="product-details.php?id='.$product['Id'].'">'.$product['Name'].'</a></h6>';
+                                       for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $product['rating']) {
+                                            echo "⭐";
+                                        } else {
+                                            echo "☆";
+                                        }
+                                        }
+                                      echo '<div class="product__price">'.$product['Price'].' TND</div>';
+                                      echo '</div>';
+                                      echo '</div>';
+                                     echo '</div>';
+                                    
+                                }
+
+                                echo "</table>";
+                            } else {
+                                echo "No products found.";
+                            }
+                    ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="img/shop/shop-1.jpg">
@@ -697,16 +757,16 @@
     <!-- Search End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.magnific-popup.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/jquery.countdown.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.nicescroll.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

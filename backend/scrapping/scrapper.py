@@ -92,7 +92,7 @@ cursor.execute("""
 conn.commit()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS images (
-        Id CHAR(42) PRIMARY KEY,
+        Id CHAR(60) PRIMARY KEY,
         product_id CHAR(36),
         FOREIGN KEY (product_id) REFERENCES products(Id) ON DELETE CASCADE
     )

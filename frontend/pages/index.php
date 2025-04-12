@@ -148,7 +148,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                 echo "<div class=\"categories__text\">";
                 echo "<h1>".$categoriesWithProductsCount[0]['Category']."</h1>";
                 echo "<p>".$categoriesWithProductsCount[0]['ProductCount']." produits</p>";
-                echo "<a href=\"#\">Shop now</a>";
+                echo '<a href="shop.php?category='.$categoriesWithProductsCount[0]['Category'].'">Shop now</a>';
                 echo "</div>";
                 echo "</div>";
                 echo "</div>"; 

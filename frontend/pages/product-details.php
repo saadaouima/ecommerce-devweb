@@ -177,12 +177,16 @@
                     <div class="product__details__text">
                         <h3><?php if($product) {echo $product['Name'];} else {echo "null";}?> <span>Brand: <?php if($product) {echo $product['Manufacturer_Name'];} else {echo "null";}?></span></h3>
                         <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <span>( 138 reviews )</span>
+                        <?php
+                        for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $product['rating']) {
+                                            echo "⭐";
+                                        } else {
+                                            echo "☆";
+                                        }
+                        }
+                            echo'<span>( '.$product['total_reviews'].' reviews )</span>'
+                        ?>
                         </div>
                         <div class="product__details__price"><?php if($product) {echo $product['Price']." TND";} else {echo "null";}?> <span>$ 83.0</span></div>
                         <p><?php if($product) {echo $product['Short_Description'];} else {echo "null";}?></p>
@@ -205,8 +209,9 @@
                                     <span>Availability:</span>
                                     <div class="stock__checkbox">
                                         <label for="stockin">
-                                            In Stock
-                                            <input type="checkbox" id="stockin">
+                                            <?php if ($product['Quantity']>0) echo 'In Stock'; else echo'Out of Stock'; ?>
+
+                                            <input type="checkbox" id="stockin" <?php if ($product['Quantity']>0) echo 'checked'; ?> disabled>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
