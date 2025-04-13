@@ -1,9 +1,11 @@
 <?php
     // Include the controller
     require_once '..\..\backend\controllers\ProductController.php';
+    require_once '..\..\backend\controllers\CartController.php';
 
     // Instantiate the controller
     $productController = new ProductController();
+    $CartController = new CartController();
     
   if (isset($_GET['id'])) {
       $id = $_GET['id'];
@@ -55,7 +57,7 @@
             <li><a href="#"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="/shop-cart.php"><span class="icon_bag_alt"></span>
                 <div class="tip">2</div>
             </a></li>
         </ul>
@@ -110,7 +112,7 @@
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
@@ -194,10 +196,10 @@
                             <div class="quantity">
                                 <span>Quantity:</span>
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" class="quantity-input" value="1">
                                 </div>
                             </div>
-                            <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                            <a href="#" class="cart-btn" data-id="<?php echo $product['Id']; ?>"><span class="icon_bag_alt"></span> Add to cart</a>
                             <ul>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
@@ -571,6 +573,7 @@
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/jquery.nicescroll.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 
 </html>
