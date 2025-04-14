@@ -3,10 +3,9 @@ document.getElementById('submitCheckout').addEventListener('click', function(e) 
   
     const form = document.getElementById('checkoutForm');
     const formData = new FormData(form);
-  alert(form);
+  //alert(form);
     // Debug: log all form values
     for (let pair of formData.entries()) {
-    alert(pair[0]+ ' = ' + pair[1]);
       console.log(pair[0]+ ' = ' + pair[1]);
     }
   
@@ -16,8 +15,9 @@ document.getElementById('submitCheckout').addEventListener('click', function(e) 
     })
     .then(response => response.text())
     .then(data => {
-      console.log(data);
-      alert('Order submitted! ' + data);
+      //console.log(data);
+      //alert('Order submitted! ' + data);
+      window.location.href = '../pages/index.php'; // change this path to your actual homepage
     });
   });
   

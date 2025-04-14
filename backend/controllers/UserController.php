@@ -1,5 +1,7 @@
 <?php
 include_once dirname(__DIR__) . '/models/User.php';
+include_once dirname(__DIR__) . '/controllers/OrderController.php';
+include_once dirname(__DIR__) . '/controllers/CartController.php';
 
 class UserController{
     public function __construct() {
@@ -21,11 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $userModel = new User();
-    $result = $userModel->createUser($data);
+    $createdUserId = $userModel->createUser($data);
 
-    if ($result) {
-        echo "User created successfully!";
-        // redirect or show success page
+    if ($createdUserId != false) {
+        session_start();
+         // Store user info in session
+         $_SESSION['user'] = [
+            'id'         => $createdUserId,
+            'first_name' => $_POST['first_name'],
+            'last_name'  => $_POST['last_name'],
+            'email'      => $_POST['email']
+        ];
+       $orderController =new OrderController();
+       $cartController =new CartController();
+       $cartItems = $cartController->getCartItems();
+       $orderController->placeOrder($createdUserId, $cartItems, 'Paypal' );
     } else {
         echo "Error: " ;
     }

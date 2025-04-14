@@ -70,8 +70,15 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <?php
+           if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+            }
+            if (isset($_SESSION['user'])){echo'<a href="#"> Hello, '.$_SESSION['user']['first_name'].' '.$_SESSION['user']['last_name'].'</a>';
+            }
+            else{echo'<a href="#">Login</a>';
+                echo'<a href="#">Register</a>';}
+            ?>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -114,8 +121,15 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                        <?php
+                            if (session_status() === PHP_SESSION_NONE) {
+                                session_start();
+                            }
+                                if (isset($_SESSION['user'])){echo'<a href="#"> Hello, '.$_SESSION['user']['first_name'].' '.$_SESSION['user']['last_name'].'</a>';
+                                }
+                                else{echo'<a href="#">Login</a>';
+                                    echo'<a href="#">Register</a>';}
+                                ?>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>

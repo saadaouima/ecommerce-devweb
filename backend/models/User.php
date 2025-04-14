@@ -24,7 +24,13 @@ class User {
         $sql = "INSERT INTO users (first_name, last_name, address, city, governorate, postcode, phone, email, password)
                 VALUES ('$first_name', '$last_name', '$address', '$city', '$governorate', '$postcode', '$phone', '$email', '$password')";
 
-        return $this->db->query($sql);
-    }
+        if ($this->db->query($sql)) {
+            // Return the last inserted user ID
+            return $this->db->insert_id;
+        } else {
+            // Return false on failure
+            return false;
+        }
+            }
 }
 ?>
