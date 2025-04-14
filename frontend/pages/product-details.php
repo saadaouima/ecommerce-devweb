@@ -153,7 +153,7 @@
                             if (!empty($product['images'])) {
                                 for ($i = 1; $i <= count($product['images']); $i++) {
                                     echo '<a class="pt active" href="#product-'.$i.'">';
-                                    echo'<img src="../assets/products_images/'.$product['images'][$i-1].'" alt="">';
+                                    echo'<img src="../assets/products_images/'.$product['images'][$i-1].'" width="151.8" height="201.56" alt="">';
                                     echo '</a>';
                                 }
                             }
