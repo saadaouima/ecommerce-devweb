@@ -190,7 +190,7 @@
                             echo'<span>( '.$product['total_reviews'].' reviews )</span>'
                         ?>
                         </div>
-                        <div class="product__details__price"><?php if($product) {echo $product['Price']." TND";} else {echo "null";}?> <span>$ 83.0</span></div>
+                        <div class="product__details__price"><?php if($product) {echo $product['Price']." TND";} else {echo "null";}?></div>
                         <p><?php if($product) {echo $product['Short_Description'];} else {echo "null";}?></p>
                         <div class="product__details__button">
                             <div class="quantity">
@@ -215,44 +215,6 @@
 
                                             <input type="checkbox" id="stockin" <?php if ($product['Quantity']>0) echo 'checked'; ?> disabled>
                                             <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available color:</span>
-                                    <div class="color__checkbox">
-                                        <label for="red">
-                                            <input type="radio" name="color__radio" id="red" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available size:</span>
-                                    <div class="size__btn">
-                                        <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            xs
-                                        </label>
-                                        <label for="s-btn">
-                                            <input type="radio" id="s-btn">
-                                            s
-                                        </label>
-                                        <label for="m-btn">
-                                            <input type="radio" id="m-btn">
-                                            m
-                                        </label>
-                                        <label for="l-btn">
-                                            <input type="radio" id="l-btn">
-                                            l
                                         </label>
                                     </div>
                                 </li>

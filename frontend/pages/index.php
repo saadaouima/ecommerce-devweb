@@ -13,6 +13,8 @@ $categories = $productController->getAllCategories();
 $categoriesWithProductsCount = $productController->getAllCategoriesWithProductsCount();
 
 $threeRandomProducts = $productController->getThreeRandomProducts();
+
+$newProducts = $productController->getNewProducts();
 ?>
 
 
@@ -99,7 +101,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                             <?php
                             if (!empty($categories)) {
                                 foreach ($categories as $category) {
-                                    echo "<li><a href=\"#\">" . $category. "</a></li>";
+                                    echo '<li><a href="shop.php?category='.$category.'">' . $category. '</a></li>';
                                 }
 
                                 echo "</table>";
@@ -187,7 +189,7 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                     echo "<div class=\"categories__text\">";
                                     echo "<h4>".$categoryWithProductsCount['Category']."</h4>";
                                     echo "<p>".$categoryWithProductsCount['ProductCount']." produits</p>";
-                                    echo "<a href=\"#\">Shop now</a>";
+                                    echo '<a href="shop.php?category='.$categoriesWithProductsCount[$i]['Category'].'">Shop now</a>';
                                     echo "</div>";
                                     echo "</div>";
                                     echo "</div>";
@@ -218,195 +220,59 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
             <div class="col-lg-8 col-md-8">
                 <ul class="filter__controls">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".women">Women’s</li>
-                    <li data-filter=".men">Men’s</li>
-                    <li data-filter=".kid">Kid’s</li>
-                    <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li>
+                    <?php 
+                    if (!empty($categories)) {
+                                foreach ($categories as $category) {
+                                    $categoryClass = str_replace(' ', '-', $category);
+                                    echo ' <li data-filter=".'.$categoryClass.'">'.$category.'</li>';
+                                }
+
+                                echo "</table>";
+                            } else {
+                                echo "No products found.";
+                            }
+                            ?>
                 </ul>
             </div>
         </div>
         <div class="row property__gallery">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix men">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Flowy striped skirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix accessories">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                        <div class="label stockout">out of stock</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Cotton T-Shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Slim striped pocket shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix kid">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-5.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-5.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
-                        <div class="label sale">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-6.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Tropical Kimono</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-7.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Contrasting sunglasses</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
-                        <div class="label">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-8.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Water resistant backpack</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
-            </div>
+        <?php
+        if (!empty($newProducts)) {
+            foreach ($newProducts as $product) {
+                $categoryClass = str_replace(' ', '-', $product['Category']);
+                echo'<div class="col-lg-3 col-md-4 col-sm-6 mix '.$categoryClass.'">';
+                echo'<div class="product__item">';
+                echo'<div class="product__item__pic set-bg" data-setbg="../assets/products_images/'.$product['first_image'].'">';
+                echo'<div class="label new">New</div>';
+                echo'<ul class="product__hover">';
+                echo'<li><a href="../assets/products_images/'.$product['first_image'].'" class="image-popup"><span class="arrow_expand"></span></a></li>';
+                echo'<li><a href="#"><span class="icon_heart_alt"></span></a></li>';
+                echo'<li><a href="#"><span class="icon_bag_alt"></span></a></li>';
+                echo'</ul>';
+                echo'</div>';
+                echo'<div class="product__item__text">';
+                echo'<h6><a href="#">'.$product['Name'].'</a></h6>';
+                echo'<div class="rating">';
+                // Dynamic star rating
+                for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $product['rating']) {
+                        echo "⭐";
+                    } else {
+                        echo "☆";
+                    }
+                }
+                echo'</div>';
+                echo'<div class="product__price">'.$product['Price'].' TND</div>';
+                echo'</div>';
+                echo'</div>';
+                echo'</div>';
+            }
+
+            echo "</table>";
+        } else {
+            echo "No products found.";
+        }
+        ?>
         </div>
     </div>
 </section>
@@ -516,16 +382,19 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
                                     echo "<a href=\"product-details.php?id=".$product['Id']."\" style=\"text-decoration: none; color: inherit;\">";
                                     echo"<div class=\"trend__item\">";
                                     echo"<div class=\"trend__item__pic\">";
-                                    echo '<img src="../assets/products_images/' . $product['images'][0] . '" width="90" height="90" alt="">';
+                                    echo '<img src="../assets/products_images/' . $product['first_image']. '" width="90" height="90" alt="">';
                                     echo"</div>";
                                     echo"<div class=\"trend__item__text\">";
                                     echo"<h6>".$product['Name']."</h6>";
                                     echo"<div class=\"rating\">";
-                                    echo"<i class=\"fa fa-star\"></i>";
-                                    echo"<i class=\"fa fa-star\"></i>";
-                                    echo"<i class=\"fa fa-star\"></i>";
-                                    echo"<i class=\"fa fa-star\"></i>";
-                                    echo"<i class=\"fa fa-star\"></i>";
+                                    // Dynamic star rating
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $product['rating']) {
+                                            echo "⭐";
+                                        } else {
+                                            echo "☆";
+                                        }
+                                    }
                                     echo"</div>";
                                     echo"<div class=\"product__price\">".$product['Price']." TND</div>";
                                     echo"</div>";
@@ -596,48 +465,6 @@ $threeRandomProducts = $productController->getThreeRandomProducts();
     </div>
 </section>
 <!-- Trend Section End -->
-
-<!-- Discount Section Begin -->
-<section class="discount">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 p-0">
-                <div class="discount__pic">
-                    <img src="img/discount.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 p-0">
-                <div class="discount__text">
-                    <div class="discount__text__title">
-                        <span>Discount</span>
-                        <h2>Summer 2019</h2>
-                        <h5><span>Sale</span> 50%</h5>
-                    </div>
-                    <div class="discount__countdown" id="countdown-time">
-                        <div class="countdown__item">
-                            <span>22</span>
-                            <p>Days</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>18</span>
-                            <p>Hour</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>46</span>
-                            <p>Min</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>05</span>
-                            <p>Sec</p>
-                        </div>
-                    </div>
-                    <a href="#">Shop now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Discount Section End -->
 
 <!-- Services Section Begin -->
 <section class="services spad">

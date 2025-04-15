@@ -42,30 +42,13 @@ class ProductController {
     }
 
     public function getThreeRandomProducts(){
-        $sql = "SELECT * FROM products LIMIT 3";
+        $sql = "SELECT p.*, ROUND(IFNULL(AVG(r.rating), 0)) AS rating, COUNT(r.review_id) AS total_reviews, ( SELECT img.Id FROM images img WHERE img.product_id = p.id ORDER BY img.id ASC LIMIT 1 ) AS first_image FROM products p LEFT JOIN reviews r ON p.id = r.product_id  GROUP BY p.id ORDER BY rating DESC LIMIT 3";
         $result = $this->db->query($sql);
 
         $threeRandomProducts = [];
 
         if ($result) {
             while ($row = $result->fetch_assoc()) {
-                $productId = $row['Id'];
-    
-                // Step 2: Fetch all images for this product
-                $imgSql = "SELECT Id FROM images WHERE product_id = ?";
-                $stmt = $this->db->prepare($imgSql);
-                $stmt->bind_param("s", $productId);
-                $stmt->execute();
-                $imgResult = $stmt->get_result();
-    
-                $images = [];
-                while ($imgRow = $imgResult->fetch_assoc()) {
-                    $images[] = $imgRow['Id'];
-                }
-    
-                // Step 3: Add images to product data
-                $row['images'] = $images;
-    
                 $threeRandomProducts[] = $row;
             }
         }
@@ -148,6 +131,19 @@ class ProductController {
         }
         return   $threeRandomProducts;
 
+    }
+    public function getNewProducts(){
+        $sql = "SELECT p.*, ROUND(IFNULL(AVG(r.rating), 0)) AS rating, COUNT(r.review_id) AS total_reviews, ( SELECT img.Id FROM images img WHERE img.product_id = p.id ORDER BY img.id ASC LIMIT 1 ) AS first_image FROM products p LEFT JOIN reviews r ON p.id = r.product_id WHERE p.created_at >= NOW() - INTERVAL 30 DAY GROUP BY p.id LIMIT 8";
+        $result = $this->db->query($sql);
+
+        $NewProducts = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $NewProducts[] = $row;
+            }
+        }
+        return   $NewProducts;
     }
 }
 ?>
